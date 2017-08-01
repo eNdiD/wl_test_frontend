@@ -16,7 +16,7 @@ class FilmItem extends Component {
 
         return (
             <div className='container'>
-                <h2>{ film.title }</h2>
+                <h1>{ film.title }</h1>
                 <dl className='dl-horizontal'>
                     <dt>Year:</dt>
                     <dd>{ film.year }</dd>

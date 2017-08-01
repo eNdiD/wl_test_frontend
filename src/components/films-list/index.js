@@ -9,6 +9,7 @@ class FilmsList extends Component {
 
         return (
             <div className='container'>
+                <h1>Films list</h1>
                 <table className='table'>
                     <thead>
                         <tr>

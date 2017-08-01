@@ -10,6 +10,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
 
 import Header from '../../components/header';
+import Loading from '../../components/loading';
 import FilmsList from '../../components/films-list';
 import FilmItem from '../../components/film-item';
 
@@ -32,7 +33,7 @@ class App extends Component {
                 <Header/>
                 {
                     filmsList.fetching ?
-                    '' :
+                    <Loading/> :
                      <Switch>
                          <Route
                              exact={ true }
