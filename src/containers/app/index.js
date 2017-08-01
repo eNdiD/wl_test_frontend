@@ -13,6 +13,7 @@ import Header from '../../components/header';
 import Loading from '../../components/loading';
 import FilmsList from '../../components/films-list';
 import FilmItem from '../../components/film-item';
+import AddFilm from '../../components/add-film';
 
 
 class App extends Component {
@@ -26,7 +27,7 @@ class App extends Component {
     // }
 
     render() {
-        const { filmsList, actorsList } = this.props;
+        const { filmsList, actorsList, filmsListActions } = this.props;
 
         return (
             <div>
@@ -40,16 +41,27 @@ class App extends Component {
                             path='/'
                             render={ () =>
                                 <FilmsList
-                                    filmsList={ filmsList }/>
+                                    films={ filmsList.films }
+                                    actors={ actorsList.actors }
+                                    order_by={ filmsList.order_by }
+                                    order={ filmsList.order }
+                                    changeOrder={ filmsListActions.changeOrder }/>
                             }/>
                         <Route
                             exact={ true }
                             path='/film/:pk'
                             render={ ({ match }) =>
                                 <FilmItem
-                                    filmsList={ filmsList }
-                                    actorsList={ actorsList }
+                                    films={ filmsList.films }
+                                    actors={ actorsList.actors }
                                     match={ match }/>
+                            }/>
+                        <Route
+                            exact={ true }
+                            path='/add'
+                            render={ () =>
+                                <AddFilm
+                                    actorsList={ actorsList }/>
                             }/>
                     </Switch>
                 }

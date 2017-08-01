@@ -3,7 +3,8 @@ import 'whatwg-fetch';
 import {
     GET_FILMS_LIST_REQUEST,
     GET_FILMS_LIST_SUCCESS,
-    GET_FILMS_LIST_FAIL
+    GET_FILMS_LIST_FAIL,
+    CHANGE_FILMS_LIST_ORDER
 } from '../constants';
 
 import { API_ROOT_URL } from '../config';
@@ -34,5 +35,14 @@ export function getFilmsList() {
                     error: true
                 })
             });
+    }
+}
+
+export function changeOrder(order_by) {
+    return {
+        type: CHANGE_FILMS_LIST_ORDER,
+        payload: {
+            order_by: order_by
+        }
     }
 }

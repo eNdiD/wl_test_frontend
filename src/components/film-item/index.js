@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import {
     find as _find
 } from 'lodash-es';
@@ -21,15 +22,17 @@ class FilmItem extends Component {
     }
 
     render() {
-        const { films } = this.props.filmsList;
-        const { actors } = this.props.actorsList;
+        const { films } = this.props;
+        const { actors } = this.props;
         const { pk } = this.props.match.params;
 
         const film = _find(films, ['pk', +pk]);
 
         return (
             <div className='container'>
-                <h1>{ film.title }</h1>
+                <div className='page-header'>
+                    <h1>{ film.title }</h1>
+                </div>
                 <dl className='dl-horizontal'>
                     <dt>Year:</dt>
                     <dd>{ film.year }</dd>
@@ -47,6 +50,10 @@ class FilmItem extends Component {
                         }
                     </dd>
                 </dl>
+                <div className='btn-toolbar'>
+                    <Link to={ `/edit/${ pk }` } className='btn btn-primary'>Edit</Link>
+                    <Link to={ `/delete/${ pk }` } className='btn btn-danger'>Delete</Link>
+                </div>
             </div>
         )
     }
