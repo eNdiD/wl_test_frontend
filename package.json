@@ -6,6 +6,7 @@
     "bootstrap": "^3.3.7",
     "classnames": "^2.2.5",
     "history": "^4.6.3",
+    "lodash-es": "^4.17.4",
     "react": "^15.6.1",
     "react-bootstrap": "^0.31.1",
     "react-dom": "^15.6.1",

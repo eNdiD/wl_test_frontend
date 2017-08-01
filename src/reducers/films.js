@@ -7,7 +7,7 @@ import {
 
 const initialState = {
     films: [],
-    fetching: false,
+    fetching: true,
     error: false
 };
 

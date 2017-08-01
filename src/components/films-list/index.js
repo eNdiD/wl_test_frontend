@@ -1,23 +1,28 @@
 import React, { Component } from 'react';
 
+import ListItem from './list-item';
+
 
 class FilmsList extends Component {
-    componentDidMount() {
-        this.props.filmsListActions.getFilmsList();
-    }
-
     render() {
         const { films } = this.props.filmsList;
 
         return (
             <div className='container'>
-                {
-                    films.map(item =>
-                        <div key={ item.pk }>
-                            <p>{ item.title }</p>
-                            <p>{ item.year }</p>
-                        </div>)
-                }
+                <table className='table'>
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Year</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            films.map(item =>
+                                <ListItem key={ item.pk } item={ item }/>)
+                        }
+                    </tbody>
+                </table>
             </div>
         )
     }
