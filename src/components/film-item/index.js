@@ -7,6 +7,19 @@ import ActorItem from './actor-item';
 
 
 class FilmItem extends Component {
+    parseFormat(char) {
+        switch (char) {
+            case 'v':
+                return 'VHS';
+            case 'd':
+                return 'DVD';
+            case 'b':
+                return 'Blu-Ray';
+            default:
+                return undefined;
+        }
+    }
+
     render() {
         const { films } = this.props.filmsList;
         const { actors } = this.props.actorsList;
@@ -21,7 +34,7 @@ class FilmItem extends Component {
                     <dt>Year:</dt>
                     <dd>{ film.year }</dd>
                     <dt>Format:</dt>
-                    <dd>{ film.format }</dd>
+                    <dd>{ this.parseFormat(film.format) }</dd>
                     <dt>Starring:</dt>
                     <dd>
                         {
