@@ -10,7 +10,7 @@ class Header extends Component {
                     <div className='navbar-header'>
                         <Link
                             to='/'
-                            className='navbar-brand'>Films</Link>
+                            className='navbar-brand'>Super Films App</Link>
                     </div>
                 </div>
             </div>

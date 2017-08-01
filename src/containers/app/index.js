@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router';
+import { Route, Switch, withRouter } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -34,24 +34,24 @@ class App extends Component {
                 {
                     filmsList.fetching ?
                     <Loading/> :
-                     <Switch>
-                         <Route
-                             exact={ true }
-                             path='/'
-                             render={ () =>
-                                 <FilmsList
-                                     filmsList={ filmsList }/>
-                             }/>
-                         <Route
-                             exact={ true }
-                             path='/film/:pk'
-                             render={ ({ match }) =>
-                                 <FilmItem
-                                     filmsList={ filmsList }
-                                     actorsList={ actorsList }
-                                     match={ match }/>
-                             }/>
-                     </Switch>
+                    <Switch>
+                        <Route
+                            exact={ true }
+                            path='/'
+                            render={ () =>
+                                <FilmsList
+                                    filmsList={ filmsList }/>
+                            }/>
+                        <Route
+                            exact={ true }
+                            path='/film/:pk'
+                            render={ ({ match }) =>
+                                <FilmItem
+                                    filmsList={ filmsList }
+                                    actorsList={ actorsList }
+                                    match={ match }/>
+                            }/>
+                    </Switch>
                 }
             </div>
         );
@@ -72,4 +72,4 @@ function mapDispatchToProps(dispatch) {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
