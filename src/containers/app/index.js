@@ -15,6 +15,7 @@ import Loading from '../../components/loading';
 import FilmsList from '../../components/films-list';
 import FilmItem from '../../components/film-item';
 import AddFilm from '../../components/add-film';
+import EditFilm from '../../components/edit-film';
 
 
 class App extends Component {
@@ -72,8 +73,19 @@ class App extends Component {
                             path='/add'
                             render={ () =>
                                 <AddFilm
-                                    actorsList={ actorsList }
+                                    actors={ actorsList.actors }
                                     addFilmItem={ filmsListActions.addFilmItem }
+                                    showStatus={ filmsListActions.showStatus }/>
+                            }/>
+                        <Route
+                            exact={ true }
+                            path='/edit/:pk'
+                            render={ () =>
+                                <EditFilm
+                                    actors={ actorsList.actors }
+                                    films={ filmsList.films }
+                                    addFilmItem={ filmsListActions.addFilmItem }
+                                    editFilmItem={ filmsListActions.editFilmItem }
                                     showStatus={ filmsListActions.showStatus }/>
                             }/>
                     </Switch>

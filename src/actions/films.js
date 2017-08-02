@@ -10,6 +10,9 @@ import {
     ADD_FILM_ITEM_REQUEST,
     ADD_FILM_ITEM_SUCCESS,
     ADD_FILM_ITEM_FAIL,
+    EDIT_FILM_ITEM_REQUEST,
+    EDIT_FILM_ITEM_SUCCESS,
+    EDIT_FILM_ITEM_FAIL,
     CHANGE_FILMS_LIST_ORDER,
     STATUS_TEXT_SHOW,
     STATUS_TEXT_HIDE
@@ -73,6 +76,39 @@ export function addFilmItem(data) {
                 console.error(e);
                 dispatch({
                     type: ADD_FILM_ITEM_FAIL,
+                    error: true
+                })
+            });
+    }
+}
+
+export function editFilmItem(pk, data) {
+    return (dispatch) => {
+        dispatch({
+            type: EDIT_FILM_ITEM_REQUEST
+        });
+
+        const query = `${ API_ROOT_URL }films/${ pk }/`;
+
+        fetch(query, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ ...data, pk }) })
+            .then(response => response.json())
+            .then(response => {
+                dispatch({
+                    type: EDIT_FILM_ITEM_SUCCESS,
+                    payload: {
+                        film: response
+                    }
+                })
+            })
+            .catch(e => {
+                console.error(e);
+                dispatch({
+                    type: EDIT_FILM_ITEM_FAIL,
                     error: true
                 })
             });

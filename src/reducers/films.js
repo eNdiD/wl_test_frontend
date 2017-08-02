@@ -1,6 +1,7 @@
 import {
     orderBy as _orderBy,
-    remove as _remove
+    remove as _remove,
+    unionBy as _unionBy
 } from 'lodash-es';
 
 import {
@@ -13,6 +14,9 @@ import {
     ADD_FILM_ITEM_REQUEST,
     ADD_FILM_ITEM_SUCCESS,
     ADD_FILM_ITEM_FAIL,
+    EDIT_FILM_ITEM_REQUEST,
+    EDIT_FILM_ITEM_SUCCESS,
+    EDIT_FILM_ITEM_FAIL,
     CHANGE_FILMS_LIST_ORDER,
     STATUS_TEXT_SHOW,
     STATUS_TEXT_HIDE
@@ -74,6 +78,31 @@ export default function filmsList(state = initialState, action) {
             }
 
         case ADD_FILM_ITEM_FAIL:
+            return {
+                ...state,
+                fetching: false,
+                error: true
+            };
+
+        case EDIT_FILM_ITEM_REQUEST:
+            return {
+                ...state,
+                fetching: true,
+                error: false
+            }
+
+        case EDIT_FILM_ITEM_SUCCESS:
+            return {
+                ...state,
+                films: _orderBy(
+                    _unionBy([action.payload.film], state.films, 'pk'),
+                    [state.order_by], [state.order]
+                ),
+                fetching: false,
+                error: false
+            }
+
+        case EDIT_FILM_ITEM_FAIL:
             return {
                 ...state,
                 fetching: false,
