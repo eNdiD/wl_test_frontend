@@ -75,7 +75,8 @@ class App extends Component {
                                 <AddFilm
                                     actors={ actorsList.actors }
                                     addFilmItem={ filmsListActions.addFilmItem }
-                                    showStatus={ filmsListActions.showStatus }/>
+                                    showStatus={ filmsListActions.showStatus }
+                                    addActorItem={ actorsListActions.addActorItem }/>
                             }/>
                         <Route
                             exact={ true }
@@ -84,9 +85,9 @@ class App extends Component {
                                 <EditFilm
                                     actors={ actorsList.actors }
                                     films={ filmsList.films }
-                                    addFilmItem={ filmsListActions.addFilmItem }
                                     editFilmItem={ filmsListActions.editFilmItem }
-                                    showStatus={ filmsListActions.showStatus }/>
+                                    showStatus={ filmsListActions.showStatus }
+                                    addActorItem={ actorsListActions.addActorItem }/>
                             }/>
                     </Switch>
                 }

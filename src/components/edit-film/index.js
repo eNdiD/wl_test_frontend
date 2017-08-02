@@ -17,9 +17,9 @@ class EditFilm extends Component {
                 <div className='panel'>
                     <FilmForm
                         actors={ this.props.actors }
-                        addFilmItem={ this.props.addFilmItem }
                         editFilmItem={ this.props.editFilmItem }
                         showStatus={ this.props.showStatus }
+                        addActorItem={ this.props.addActorItem }
                         method='PUT'
                         film={ _find(this.props.films, ['pk', +pk]) }/>
                 </div>

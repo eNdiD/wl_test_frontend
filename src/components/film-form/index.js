@@ -3,8 +3,13 @@ import { Link, withRouter } from 'react-router-dom';
 import {
     bindAll as _bindAll,
     find as _find,
-    orderBy as _orderBy
+    // filter as _filter,
+    orderBy as _orderBy,
+    // unionBy as _unionBy,
+    // without as _without
 } from 'lodash-es';
+
+import './style.css';
 
 
 class FilmForm extends Component {
@@ -14,6 +19,7 @@ class FilmForm extends Component {
         _bindAll(this, [
             '_handleChange',
             '_handleSubmit',
+            '_handleActorAdd',
             'validateForm'
         ]);
 
@@ -24,8 +30,9 @@ class FilmForm extends Component {
             year: (film && film.year) || '',
             format: (film && film.format) || '',
             actors: (film && film.actors) || [],
-            actors_list: [],
-            errors: []
+            errors: [],
+            new_actor: '',
+            new_actor_valid: true
         }
     }
 
@@ -71,6 +78,22 @@ class FilmForm extends Component {
         }
     }
 
+    _handleActorAdd() {
+        const field_valid = !!this.state.new_actor;
+
+        this.setState({
+            new_actor_valid: field_valid
+        });
+
+        if (field_valid) {
+            const data = {
+                name: this.state.new_actor
+            }
+
+            this.props.addActorItem(data);
+        }
+    }
+
     validateForm() {
         const { title, year, format, actors } = this.state;
 
@@ -102,14 +125,8 @@ class FilmForm extends Component {
         return !!(title && year && format && actors.length);
     }
 
-    componentDidMount() {
-        this.setState({
-            actors_list: this.props.actors
-        })
-    }
-
     render() {
-        const { errors } = this.state;
+        const { errors, new_actor_valid } = this.state;
 
         const title_error = errors.length ? !(_find(errors, ['field', 'title']).valid) : false;
         const year_error = errors.length ? !(_find(errors, ['field', 'year']).valid) : false;
@@ -179,12 +196,29 @@ class FilmForm extends Component {
                             onChange={ this._handleChange }
                             multiple>
                             {
-                                _orderBy(this.state.actors_list, ['name'], ['asc']).map(item =>
+                                _orderBy(this.props.actors, ['name'], ['asc']).map((item, idx) =>
                                     <option
-                                        key={ item.pk }
+                                        key={ idx }
                                         value={ item.pk }>{ item.name }</option>)
                             }
                         </select>
+                        <div className='add-actor'>
+                            <div className={ `form-group ${ new_actor_valid ? '' : 'has-error' }` }>
+                                <div className='col-md-6'>
+                                    <input
+                                        type='text'
+                                        value={ this.state.new_actor }
+                                        name='new_actor'
+                                        className='form-control'
+                                        placeholder='New actor'
+                                        onChange={ this._handleChange }/>
+                                </div>
+                            </div>
+                            <button
+                                type='button'
+                                className='btn btn-primary btn-add-actor'
+                                onClick={ this._handleActorAdd }>Add Actor</button>
+                        </div>
                     </div>
                 </div>
                 <hr/>

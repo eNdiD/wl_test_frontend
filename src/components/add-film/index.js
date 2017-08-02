@@ -15,6 +15,7 @@ class AddFilm extends Component {
                         actors={ this.props.actors }
                         addFilmItem={ this.props.addFilmItem }
                         showStatus={ this.props.showStatus }
+                        addActorItem={ this.props.addActorItem }
                         method='POST'/>
                 </div>
             </div>
