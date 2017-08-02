@@ -46,7 +46,7 @@ class AddFilm extends Component {
             const { title, year, format, actors } = this.state;
 
             const data = {
-                title: title,
+                title: title.trim(),
                 year: year,
                 format: format,
                 actors: actors
@@ -179,6 +179,7 @@ class AddFilm extends Component {
                                 </select>
                             </div>
                         </div>
+                        <hr/>
                         <div className='btn-toolbar'>
                             <button type='submit' className='btn btn-primary'>Submit</button>
                             <Link to='/' className='btn btn-danger'>Cancel</Link>

@@ -28,7 +28,7 @@ class FilmsList extends Component {
 
     _handleSearchChange(e) {
         this.setState({
-            search: e.target.value
+            search: e.target.value.trim()
         });
     }
 

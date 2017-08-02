@@ -62,6 +62,7 @@ class FilmItem extends Component {
                         }
                     </dd>
                 </dl>
+                <hr/>
                 <div className='btn-toolbar'>
                     <Link to={ `/edit/${ pk }` } className='btn btn-primary'>Edit</Link>
                     <button
