@@ -3,11 +3,11 @@ import { Link, withRouter } from 'react-router-dom';
 import {
     bindAll as _bindAll,
     find as _find,
-    flatten as _flatten,
-    forEach as _forEach,
+    // flatten as _flatten,
+    // forEach as _forEach,
     orderBy as _orderBy,
-    uniq as _uniq,
-    without as _without
+    // uniq as _uniq,
+    // without as _without
 } from 'lodash-es';
 
 import './style.css';
@@ -144,18 +144,6 @@ class FilmForm extends Component {
     }
 
     render() {
-
-        // if (this.props.films.length) {
-        //     const actors_in_films = _uniq(_flatten(this.props.films.map(film => film.actors)));
-        //     console.log(actors_in_films);
-        //
-        //     const all_actors = this.props.actors.map(actor => actor.pk);
-        //     console.log(all_actors);
-        //
-        //     console.log(_without(all_actors, ...actors_in_films));
-        // }
-
-
         const { errors, new_actor_valid } = this.state;
 
         const title_error = errors.length ? !(_find(errors, ['field', 'title']).valid) : false;

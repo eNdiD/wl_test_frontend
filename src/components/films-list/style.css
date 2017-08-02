@@ -37,3 +37,11 @@
 .films-actions {
     width: 104px;
 }
+
+.file-uploader input {
+    visibility: hidden;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+}

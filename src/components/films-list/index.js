@@ -3,7 +3,11 @@ import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import {
     bindAll as _bindAll,
-    intersection as _intersection
+    forEach as _forEach,
+    find as _find,
+    filter as _filter,
+    intersection as _intersection,
+    remove as _remove
 } from 'lodash-es';
 
 import './style.css';
@@ -18,7 +22,8 @@ class FilmsList extends Component {
         _bindAll(this, [
             '_handleSearchChange',
             '_handleSearchClear',
-            '_handleOrder'
+            '_handleOrder',
+            '_handleFileUpload'
         ]);
 
         this.state = {
@@ -42,6 +47,68 @@ class FilmsList extends Component {
         const order_by = e.target.getAttribute('data-order-by')
 
         this.props.changeOrder(order_by);
+    }
+
+    _handleFileUpload(e) {
+        const file = e.target.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                let content = reader.result;
+
+                const pattern = /Title: (.*)\nRelease Year: (\d{4})\nFormat: (.*)\nStars: (.*)/g;
+                let match;
+
+                while ((match = pattern.exec(content)) !== null) {
+                    const actors = match[4].split(',').map(actor => actor.trim());
+
+                    _forEach(actors, actor => {
+                        if (!_find(this.props.actors, ['name', actor])) {
+                            this.props.addActorItem({ name: actor });
+                        }
+                    });
+                }
+
+                setTimeout(() => {
+                    while ((match = pattern.exec(content)) !== null) {
+                        const actors = match[4].split(',').map(actor => actor.trim());
+
+                        const actors_arr = actors.map(actor => {
+                            return _find(this.props.actors, ['name', actor]).pk
+                        });
+
+                        let format = '';
+                        switch (match[3]) {
+                            case 'VHS':
+                                format = 'v';
+                                break;
+                            case 'DVD':
+                                format = 'd';
+                                break;
+                            case 'Blu-Ray':
+                                format = 'b';
+                                break;
+                        }
+
+                        const data = {
+                            title: match[1],
+                            year: match[2],
+                            format: format,
+                            actors: actors_arr
+                        }
+
+                        console.log(data);
+
+                        this.props.addFilmItem(data);
+                        this.props.showStatus('Movies successfuly added!');
+                    }
+                }, 1000);
+            }
+            reader.readAsText(file);
+        }
+
+        e.target.value = '';
     }
 
     render() {
@@ -75,6 +142,13 @@ class FilmsList extends Component {
                 <div className='clearfix'>
                     <div className='btn-toolbar pull-left'>
                         <Link to='/add' className='btn btn-primary'>Add New</Link>
+                        <label className='file-uploader btn btn-primary'>
+                            Load from file
+                            <input
+                                type='file'
+                                accept='.txt'
+                                onChange={ this._handleFileUpload }/>
+                        </label>
                     </div>
                     <div className='pull-right form-inline search-form'>
                         <input

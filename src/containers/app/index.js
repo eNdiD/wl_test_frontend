@@ -55,7 +55,9 @@ class App extends Component {
                                     order_by={ filmsList.order_by }
                                     order={ filmsList.order }
                                     changeOrder={ filmsListActions.changeOrder }
+                                    addFilmItem={ filmsListActions.addFilmItem }
                                     deleteFilmItem={ filmsListActions.deleteFilmItem }
+                                    addActorItem={ actorsListActions.addActorItem }
                                     showStatus={ filmsListActions.showStatus }/>
                             }/>
                         <Route
