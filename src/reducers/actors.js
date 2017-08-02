@@ -1,3 +1,5 @@
+import { remove as _remove } from 'lodash-es';
+
 import {
     GET_ACTORS_LIST_REQUEST,
     GET_ACTORS_LIST_SUCCESS,

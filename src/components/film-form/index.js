@@ -3,10 +3,11 @@ import { Link, withRouter } from 'react-router-dom';
 import {
     bindAll as _bindAll,
     find as _find,
-    // filter as _filter,
+    flatten as _flatten,
+    forEach as _forEach,
     orderBy as _orderBy,
-    // unionBy as _unionBy,
-    // without as _without
+    uniq as _uniq,
+    without as _without
 } from 'lodash-es';
 
 import './style.css';
@@ -74,6 +75,19 @@ class FilmForm extends Component {
                     this.props.addFilmItem(data);
                     this.props.showStatus('Movie successfuly added!');
             }
+
+            // setTimeout(() => {
+            //     const actors_in_films = _uniq(_flatten(this.props.films.map(film => film.actors)));
+            //     const all_actors = this.props.actors.map(actor => actor.pk);
+            //     const unused_actors = _without(all_actors, ...actors_in_films);
+            //     console.log(actors_in_films);
+            //     console.log(all_actors);
+            //
+            //     _forEach(unused_actors, pk => {
+            //         this.props.deleteActorItem(pk);
+            //     });
+            // }, 2000);
+
             this.props.history.push('/');
         }
     }
@@ -87,10 +101,14 @@ class FilmForm extends Component {
 
         if (field_valid) {
             const data = {
-                name: this.state.new_actor
+                name: this.state.new_actor.trim()
             }
 
             this.props.addActorItem(data);
+
+            this.setState({
+                new_actor: ''
+            });
         }
     }
 
@@ -126,6 +144,18 @@ class FilmForm extends Component {
     }
 
     render() {
+
+        // if (this.props.films.length) {
+        //     const actors_in_films = _uniq(_flatten(this.props.films.map(film => film.actors)));
+        //     console.log(actors_in_films);
+        //
+        //     const all_actors = this.props.actors.map(actor => actor.pk);
+        //     console.log(all_actors);
+        //
+        //     console.log(_without(all_actors, ...actors_in_films));
+        // }
+
+
         const { errors, new_actor_valid } = this.state;
 
         const title_error = errors.length ? !(_find(errors, ['field', 'title']).valid) : false;

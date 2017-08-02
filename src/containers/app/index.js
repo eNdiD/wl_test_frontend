@@ -29,7 +29,7 @@ class App extends Component {
     // }
 
     render() {
-        const { filmsList, actorsList, filmsListActions } = this.props;
+        const { filmsList, actorsList, filmsListActions, actorsListActions } = this.props;
 
         return (
             <div>
@@ -74,9 +74,11 @@ class App extends Component {
                             render={ () =>
                                 <AddFilm
                                     actors={ actorsList.actors }
+                                    films={ filmsList.films }
                                     addFilmItem={ filmsListActions.addFilmItem }
                                     showStatus={ filmsListActions.showStatus }
-                                    addActorItem={ actorsListActions.addActorItem }/>
+                                    addActorItem={ actorsListActions.addActorItem }
+                                    deleteActorItem={ actorsListActions.deleteActorItem }/>
                             }/>
                         <Route
                             exact={ true }
@@ -87,7 +89,8 @@ class App extends Component {
                                     films={ filmsList.films }
                                     editFilmItem={ filmsListActions.editFilmItem }
                                     showStatus={ filmsListActions.showStatus }
-                                    addActorItem={ actorsListActions.addActorItem }/>
+                                    addActorItem={ actorsListActions.addActorItem }
+                                    deleteActorItem={ actorsListActions.deleteActorItem }/>
                             }/>
                     </Switch>
                 }

@@ -13,9 +13,11 @@ class AddFilm extends Component {
                 <div className='panel'>
                     <FilmForm
                         actors={ this.props.actors }
+                        films={ this.props.films }
                         addFilmItem={ this.props.addFilmItem }
                         showStatus={ this.props.showStatus }
                         addActorItem={ this.props.addActorItem }
+                        deleteActorItem={ this.props.deleteActorItem }
                         method='POST'/>
                 </div>
             </div>
