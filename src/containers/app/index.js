@@ -8,6 +8,7 @@ import * as actorsListActions from '../../actions/actors';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
+import './style.css';
 
 import Header from '../../components/header';
 import Loading from '../../components/loading';
@@ -33,6 +34,13 @@ class App extends Component {
             <div>
                 <Header/>
                 {
+                    filmsList.status ?
+                    <div className='container'>
+                        <p className='bg-danger status-text'>{ filmsList.status }</p>
+                    </div> :
+                    ''
+                }
+                {
                     filmsList.fetching ?
                     <Loading/> :
                     <Switch>
@@ -45,7 +53,9 @@ class App extends Component {
                                     actors={ actorsList.actors }
                                     order_by={ filmsList.order_by }
                                     order={ filmsList.order }
-                                    changeOrder={ filmsListActions.changeOrder }/>
+                                    changeOrder={ filmsListActions.changeOrder }
+                                    deleteFilmItem={ filmsListActions.deleteFilmItem }
+                                    showStatus={ filmsListActions.showStatus }/>
                             }/>
                         <Route
                             exact={ true }
@@ -54,7 +64,8 @@ class App extends Component {
                                 <FilmItem
                                     films={ filmsList.films }
                                     actors={ actorsList.actors }
-                                    match={ match }/>
+                                    deleteFilmItem={ filmsListActions.deleteFilmItem }
+                                    showStatus={ filmsListActions.showStatus }/>
                             }/>
                         <Route
                             exact={ true }

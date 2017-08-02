@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import {
     bindAll as _bindAll,
-    intersection as _intersection,
-    union as _union
+    intersection as _intersection
 } from 'lodash-es';
 
 import './style.css';
@@ -47,7 +46,7 @@ class FilmsList extends Component {
 
     render() {
         const { search } = this.state;
-        const { order_by, order } = this.props;
+        const { order_by, order, deleteFilmItem, showStatus } = this.props;
         let { films, actors } = this.props;
 
         if (search) {
@@ -71,7 +70,7 @@ class FilmsList extends Component {
         return (
             <div className='container'>
                 <div className='page-header'>
-                    <h1>Films list</h1>
+                    <h1>Movies list</h1>
                 </div>
                 <div className='clearfix'>
                     <div className='btn-toolbar pull-left'>
@@ -101,28 +100,24 @@ class FilmsList extends Component {
                                     type='button'
                                     className='btn-sort'
                                     data-order-by='title'
-                                    onClick={ this._handleOrder }>
-                                    Title
-                                    {
-                                        order_by === 'title' ?
-                                        <span className={ btnOrderClasses }/> :
-                                        ''
-                                    }
-                                </button>
+                                    onClick={ this._handleOrder }>Title</button>
+                                {
+                                    order_by === 'title' ?
+                                    <span className={ btnOrderClasses }/> :
+                                    ''
+                                }
                             </th>
                             <th className='films-year'>
                                 <button
                                     type='button'
                                     className='btn-sort'
                                     data-order-by='year'
-                                    onClick={ this._handleOrder }>
-                                    Year
-                                    {
-                                        order_by === 'year' ?
-                                        <span className={ btnOrderClasses }/> :
-                                        ''
-                                    }
-                                </button>
+                                    onClick={ this._handleOrder }>Year</button>
+                                {
+                                    order_by === 'year' ?
+                                    <span className={ btnOrderClasses }/> :
+                                    ''
+                                }
                             </th>
                             <th className='films-actions'>Ations</th>
                         </tr>
@@ -130,7 +125,11 @@ class FilmsList extends Component {
                     <tbody>
                         {
                             films.map(item =>
-                                <ListItem key={ item.pk } item={ item }/>)
+                                <ListItem
+                                    key={ item.pk }
+                                    item={ item }
+                                    deleteFilmItem={ deleteFilmItem }
+                                    showStatus={ showStatus }/>)
                         }
                     </tbody>
                 </table>

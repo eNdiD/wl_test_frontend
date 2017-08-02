@@ -3,6 +3,17 @@ import { Link } from 'react-router-dom';
 
 
 class ListItem extends Component {
+    constructor(props) {
+        super(props);
+
+        this._handleRemove = this._handleRemove.bind(this);
+    }
+
+    _handleRemove() {
+        this.props.deleteFilmItem(this.props.item.pk);
+        this.props.showStatus('Movie deleted!')
+    }
+
     render() {
         const { pk, title, year } = this.props.item;
 
@@ -17,9 +28,12 @@ class ListItem extends Component {
                         <Link to={ `/edit/${ pk }` } className='btn btn-primary'>
                             <span className='glyphicon glyphicon-pencil'></span>
                         </Link>
-                        <Link to={ `/delete/${ pk }` } className='btn btn-danger'>
+                        <button
+                            type='button'
+                            className='btn btn-danger'
+                            onClick={ this._handleRemove }>
                             <span className='glyphicon glyphicon-remove'></span>
-                        </Link>
+                        </button>
                     </div>
                 </td>
             </tr>

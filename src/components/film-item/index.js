@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import {
     find as _find
 } from 'lodash-es';
@@ -8,6 +8,18 @@ import ActorItem from './actor-item';
 
 
 class FilmItem extends Component {
+    constructor(props) {
+        super(props);
+
+        this._handleRemove = this._handleRemove.bind(this);
+    }
+
+    _handleRemove() {
+        this.props.deleteFilmItem(this.props.match.params.pk);
+        this.props.showStatus('Movie deleted!')
+        this.props.history.push('/');
+    }
+
     parseFormat(char) {
         switch (char) {
             case 'v':
@@ -52,11 +64,15 @@ class FilmItem extends Component {
                 </dl>
                 <div className='btn-toolbar'>
                     <Link to={ `/edit/${ pk }` } className='btn btn-primary'>Edit</Link>
-                    <Link to={ `/delete/${ pk }` } className='btn btn-danger'>Delete</Link>
+                    <button
+                        type='button'
+                        className='btn btn-danger'
+                        onClick={ this._handleRemove }>Delete</button>
+                    <Link to='/' className='btn btn-warning'>Back</Link>
                 </div>
             </div>
         )
     }
 }
 
-export default FilmItem
+export default withRouter(FilmItem)
