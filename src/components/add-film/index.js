@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import {
     bindAll as _bindAll,
     find as _find,
@@ -41,8 +41,20 @@ class AddFilm extends Component {
 
     _handleSubmit(e) {
         e.preventDefault();
+
         if (this.validateForm()) {
-            
+            const { title, year, format, actors } = this.state;
+
+            const data = {
+                title: title,
+                year: year,
+                format: format,
+                actors: actors
+            }
+
+            this.props.addFilmItem(data);
+            this.props.showStatus('Movie successfuly added!')
+            this.props.history.push('/');
         }
     }
 
@@ -178,4 +190,4 @@ class AddFilm extends Component {
     }
 }
 
-export default AddFilm;
+export default withRouter(AddFilm);

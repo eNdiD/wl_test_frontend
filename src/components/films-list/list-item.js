@@ -11,7 +11,7 @@ class ListItem extends Component {
 
     _handleRemove() {
         this.props.deleteFilmItem(this.props.item.pk);
-        this.props.showStatus('Movie deleted!')
+        this.props.showStatus('Movie deleted!');
     }
 
     render() {

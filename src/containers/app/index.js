@@ -60,7 +60,7 @@ class App extends Component {
                         <Route
                             exact={ true }
                             path='/film/:pk'
-                            render={ ({ match }) =>
+                            render={ () =>
                                 <FilmItem
                                     films={ filmsList.films }
                                     actors={ actorsList.actors }
@@ -72,7 +72,9 @@ class App extends Component {
                             path='/add'
                             render={ () =>
                                 <AddFilm
-                                    actorsList={ actorsList }/>
+                                    actorsList={ actorsList }
+                                    addFilmItem={ filmsListActions.addFilmItem }
+                                    showStatus={ filmsListActions.showStatus }/>
                             }/>
                     </Switch>
                 }

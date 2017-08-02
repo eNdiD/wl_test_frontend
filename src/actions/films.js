@@ -7,6 +7,9 @@ import {
     DELETE_FILM_ITEM_REQUEST,
     DELETE_FILM_ITEM_SUCCESS,
     DELETE_FILM_ITEM_FAIL,
+    ADD_FILM_ITEM_REQUEST,
+    ADD_FILM_ITEM_SUCCESS,
+    ADD_FILM_ITEM_FAIL,
     CHANGE_FILMS_LIST_ORDER,
     STATUS_TEXT_SHOW,
     STATUS_TEXT_HIDE
@@ -37,6 +40,39 @@ export function getFilmsList() {
                 console.error(e);
                 dispatch({
                     type: GET_FILMS_LIST_FAIL,
+                    error: true
+                })
+            });
+    }
+}
+
+export function addFilmItem(data) {
+    return (dispatch) => {
+        dispatch({
+            type: ADD_FILM_ITEM_REQUEST
+        });
+
+        const query = `${ API_ROOT_URL }films/`;
+
+        fetch(query, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data) })
+            .then(response => response.json())
+            .then(response => {
+                dispatch({
+                    type: ADD_FILM_ITEM_SUCCESS,
+                    payload: {
+                        film: response
+                    }
+                })
+            })
+            .catch(e => {
+                console.error(e);
+                dispatch({
+                    type: ADD_FILM_ITEM_FAIL,
                     error: true
                 })
             });

@@ -10,6 +10,9 @@ import {
     DELETE_FILM_ITEM_REQUEST,
     DELETE_FILM_ITEM_SUCCESS,
     DELETE_FILM_ITEM_FAIL,
+    ADD_FILM_ITEM_REQUEST,
+    ADD_FILM_ITEM_SUCCESS,
+    ADD_FILM_ITEM_FAIL,
     CHANGE_FILMS_LIST_ORDER,
     STATUS_TEXT_SHOW,
     STATUS_TEXT_HIDE
@@ -43,6 +46,34 @@ export default function filmsList(state = initialState, action) {
             };
 
         case GET_FILMS_LIST_FAIL:
+            return {
+                ...state,
+                fetching: false,
+                error: true
+            };
+
+        case ADD_FILM_ITEM_REQUEST:
+            return {
+                ...state,
+                fetching: true,
+                error: false
+            }
+
+        case ADD_FILM_ITEM_SUCCESS:
+            return {
+                ...state,
+                films: _orderBy(
+                    [
+                        ...state.films,
+                        action.payload.film
+                    ],
+                    [state.order_by], [state.order]
+                ),
+                fetching: false,
+                error: false
+            }
+
+        case ADD_FILM_ITEM_FAIL:
             return {
                 ...state,
                 fetching: false,
