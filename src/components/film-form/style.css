@@ -1,3 +1,7 @@
 .add-actor {
     margin-top: 20px;
 }
+
+.starring-select {
+    height: 200px !important;
+}

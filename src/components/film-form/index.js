@@ -210,7 +210,7 @@ class FilmForm extends Component {
                             value={ this.state.actors }
                             name='actors'
                             id='add-actors'
-                            className='form-control'
+                            className='form-control starring-select'
                             onChange={ this._handleChange }
                             multiple>
                             {
