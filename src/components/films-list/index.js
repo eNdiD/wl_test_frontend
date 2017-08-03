@@ -33,7 +33,7 @@ class FilmsList extends Component {
 
     _handleSearchChange(e) {
         this.setState({
-            search: e.target.value.trim()
+            search: e.target.value
         });
     }
 
@@ -118,11 +118,11 @@ class FilmsList extends Component {
 
         if (search) {
             const filtered_actors = actors.filter(item => {
-                return item.name.toLowerCase().indexOf(search.toLowerCase()) >= 0;
+                return item.name.toLowerCase().indexOf(search.toLowerCase().trim()) >= 0;
             });
 
             films = films.filter(item => {
-                return item.title.toLowerCase().indexOf(search.toLowerCase()) >= 0 ||
+                return item.title.toLowerCase().indexOf(search.toLowerCase().trim()) >= 0 ||
                     _intersection(item.actors, filtered_actors.map(item => item.pk)).length
             });
         }
