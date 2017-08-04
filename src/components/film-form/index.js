@@ -72,21 +72,13 @@ class FilmForm extends Component {
                     this.props.showStatus('Movie successfuly edited!');
                     break;
                 default:
-                    this.props.addFilmItem(data);
-                    this.props.showStatus('Movie successfuly added!');
+                    if (!_find(this.props.films, {'title': data.title, 'year': +data.year})) {
+                        this.props.addFilmItem(data);
+                        this.props.showStatus('Movie successfuly added!');
+                    } else {
+                        this.props.showStatus('Movie already exist!');
+                    }
             }
-
-            // setTimeout(() => {
-            //     const actors_in_films = _uniq(_flatten(this.props.films.map(film => film.actors)));
-            //     const all_actors = this.props.actors.map(actor => actor.pk);
-            //     const unused_actors = _without(all_actors, ...actors_in_films);
-            //     console.log(actors_in_films);
-            //     console.log(all_actors);
-            //
-            //     _forEach(unused_actors, pk => {
-            //         this.props.deleteActorItem(pk);
-            //     });
-            // }, 2000);
 
             this.props.history.push('/');
         }
@@ -116,17 +108,26 @@ class FilmForm extends Component {
         const { title, year, format, actors } = this.state;
 
         const validateField = (field, value) => {
-            if (field === 'year') {
-                return {
-                    field: field,
-                    valid: !isNaN(parseFloat(value)) && isFinite(value)
+            switch (field) {
+                case 'title': {
+                    const tp = /^[a-zA-Z0-9-_":]+$/;
+                    return {
+                        field: field,
+                        valid: tp.test(value)
+                    }
                 }
+                case 'year':
+                    const yp = /^(19|20)\d{2}$/;
+                    return {
+                        field: field,
+                        valid: yp.test(value)
+                    }
+                default:
+                    return {
+                        field: field,
+                        valid: !!(value && value.length)
+                    };
             }
-
-            return {
-                field: field,
-                valid: !!(value && value.length)
-            };
         }
 
         const new_errors = [

@@ -5,9 +5,9 @@ import {
     bindAll as _bindAll,
     forEach as _forEach,
     find as _find,
-    filter as _filter,
+    // filter as _filter,
     intersection as _intersection,
-    remove as _remove
+    // remove as _remove
 } from 'lodash-es';
 
 import './style.css';
@@ -98,9 +98,12 @@ class FilmsList extends Component {
                             actors: actors_arr
                         }
 
-                        console.log(data);
+                        // console.log(data);
 
-                        this.props.addFilmItem(data);
+                        if (!_find(this.props.films, {'title': data.title, 'year': +data.year})) {
+                            this.props.addFilmItem(data);
+                        }
+
                         this.props.showStatus('Movies successfuly added!');
                     }
                 }, 1000);
